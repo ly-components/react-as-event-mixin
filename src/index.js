@@ -1,5 +1,5 @@
 var slice = Array.prototype.slice,
-  noop = () => {};
+  noop = function() {};
 
 function word(str) {
   return str && (str[0].toUpperCase() + str.slice(1));
