@@ -14,16 +14,16 @@ $ npm install --save react-as-event-mixin
 ```javascript
 import React from 'react';
 import ReactMixin from 'react-mixin';
-import EventMixin from 'react-as-event-mixin';
+import EventMixin from 'babel!react-as-event-mixin';
 
 class Component extends React.Component {
   //blabla
 }
 
-ReactMix(Component.prototype, EventMixin);
+ReactMixin(Component.prototype, EventMixin);
 
 var instance = React.render(<Component/>, container);
-instance.on('eventName1', callback1).on('eventName2', callback2).off('eventName1', callback1);
+instance.on('eventName1', callback1).on('eventName2', callback2).off('eventName1', callback1).fire('eventName1');
 //....
 ```
 
@@ -46,6 +46,12 @@ Unbind all callbacks when no specific callback.
 ### fire(string:name, [data1, data2...])
 
 Trigger an event, run all the callbacks which bind on this event.
+
+### fireAll(string:name, [data1, data2...])
+
+Trigger an event, and 'on' event will be trigger before the callbacks.
+
+Just like this: `fireAll('change')` will also trigger the `onChange` function on `this.props`.
 
 ## Development
 

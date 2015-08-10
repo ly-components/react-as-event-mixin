@@ -1,6 +1,6 @@
 {
   "name": "react-as-event-mixin",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "An event mixin for React components",
   "main": "src/index.js",
   "scripts": {
