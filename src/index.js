@@ -1,5 +1,17 @@
 var slice = Array.prototype.slice,
   noop = () => {};
+
+function word(str) {
+  return str && (str[0].toUpperCase() + str.slice(1));
+}
+
+function onName(name) {
+  return 'on' + name.split(/[^a-zA-Z0-9]/).reduce((rst, w) => {
+    rst += word(w) || '';
+    return rst;
+  }, '');
+}
+
 module.exports = {
   _events: {},
   on: function(name, cb) {
@@ -34,5 +46,11 @@ module.exports = {
     queue = this._events[name];
     (queue = queue.filter(cb => cb !== noop)).length === 0 ? delete this._events[name] : (this._events[name] = queue);
     return this;
+  },
+  fireAll: function() {
+    var args = slice.call(arguments);
+    var name = onName(args[0]);
+    this.props[name] && this.props[name].apply(this, args.slice(1));
+    return this.fire.apply(this, args);
   }
 };
