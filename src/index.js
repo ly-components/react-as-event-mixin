@@ -13,12 +13,13 @@ function onName(name) {
 }
 
 module.exports = {
-  _events: {},
   on: function(name, cb) {
+    this._events = this._events || {};
     (this._events[name] = this._events[name] || []).push(cb || noop);
     return this;
   },
   off: function(name, cb) {
+    if(!this._events) return this;
     var queue,
       index;
     if (!(queue = this._events[name]))
@@ -38,6 +39,7 @@ module.exports = {
     return this;
   },
   fire: function(name) {
+    if(!this._events) return this;
     var queue;
     if (!(queue = this._events[name]))
       return this;
